@@ -1,5 +1,3 @@
-import datetime
-
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils import timezone
@@ -16,7 +14,7 @@ class RemainderForm(forms.Form):
         if data < timezone.now():
             raise ValidationError('Invalid value - time in the past!')
 
-        if data > timezone.now() + datetime.timedelta(days=2):
+        if data > timezone.now() + timezone.timedelta(days=2):
             raise ValidationError('Invalid value - time more than 2 days ahead!')
 
         return data
