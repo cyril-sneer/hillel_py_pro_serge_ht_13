@@ -3,13 +3,13 @@
 import sys
 
 from django.conf import settings
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
 
 from .forms import RemainderForm
-from .tasks import send_postponed_email
+from .tasks import send_postponed_email, grab_quotes
 
 
 def send_email(request):
@@ -48,3 +48,8 @@ def send_email(request):
 
 def success(request):
     return render(request, 'success.html')
+
+
+def debug_grab_quotes(request):
+    grab_quotes(url=r'https://quotes.toscrape.com/', quote_qty=5, )
+    return HttpResponse('Grab quotes')
